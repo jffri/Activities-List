@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Daily Activity</title>
+  <style>
+  body {
+    font-family: "Times New Roman", Sans-Serif;
+    background-color: #399;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    width: 100%;
+    max-width: 600px;
+    background-color: #ffff;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  h1 {
+    text-align: center;
+    color: #010849;
+  }
+  .form-container {
+    display: flex;
+    gap: 7px;
+    margin-bottom: 20px;
+  }
+  #my-activity,
+  #my-schedule {
+    flex: 1;
+    padding: 7px;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #0109;
+  }
+  #add-activity {
+    padding: 10px 15px;
+    font-size: 12px;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    background-color: #399;
+    color: #ffff;
+    cursor: pointer;
+  }
+  #add-activity:hover {
+    background-color: #3c9;
+  }
+  #activity-list {
+    list-style: none;
+    padding: 0;
+  }
+  #activity-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: #f9f9f9;
+    border: 1px solid #dddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  #activity-list li .details {
+    flex: 1;
+  }
+  #activity-list li button {
+    padding: 5px 10px;
+    font-size: 0.9em;
+    color: white;
+    background-color: #675;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  #activity-list li button:hover {
+    background-color: #680;
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Activities List</h1>
+    <div class="form-container">
+      <input type="text" id="my-activity" placeholder="Activity" />
+      <input type="text" id="my-schedule" placeholder="Schedule" />
+      <button id="add-activity"><strong>Add Activity</strong></strong></button>
+    </div>
+    <ul id="activity-list"></ul>
+  </div>
+  <script>
+    const myActivityInput = document.getElementById("my-activity");
+    const myScheduleInput = document.getElementById("my-schedule");
+    const addActivityBtn = document.getElementById("add-activity");
+    const activityList = document.getElementById("activity-list");
+
+    addActivityBtn.addEventListener("click", () => {
+      const activity = myActivityInput.value.trim();
+      const schedule = myScheduleInput.value.trim();
+
+      if (activity === "" || schedule === "") {
+        alert("Please enter both activity and schedule");
+        return;
+      }
+
+      addActivity(activity, schedule);
+      myActivityInput.value = "";
+      myScheduleInput.value = "";
+    });
+
+    function addActivity(activity, schedule) {
+      const li = document.createElement("li");
+      const details = document.createElement("span");
+      details.className = "details";
+      details.textContent = `${activity} on ${schedule}`;
+      const deleteBtn = document.createElement("button");
+      deleteBtn.className = "delete-btn";
+      deleteBtn.textContent = "Delete";
+      deleteBtn.addEventListener("click", () => li.remove());
+
+      li.appendChild(details);
+      li.appendChild(deleteBtn);
+      activityList.appendChild(li);
+    }
+</script>
+
+</body>
+</html>
